@@ -38,7 +38,7 @@
                             </h1>
                         </div>
                         <group string="Activities">
-                            <field name="active" invisible="1"/>
+                            <field name="active"/>
                             <field name="plan_activity_type_ids" nolabel="1">
                                 <tree editable="bottom">
                                     <field name="activity_type_id"/>
