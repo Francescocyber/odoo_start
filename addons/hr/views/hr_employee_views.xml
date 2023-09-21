@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <search string="Employees">
                     <field name="name" string="Employee" filter_domain="['|', ('work_email', 'ilike', self), ('name', 'ilike', self)]"/>
-                    <field name="category_ids" groups="hr.group_hr_user"/>
+                    <field name="category_ids" invisible="1" groups="hr.group_hr_user"/>
                     <field name="job_id"/>
                     <separator/>
                     <filter string="Unread Messages" name="message_needaction" domain="[('message_needaction', '=', True)]"/>
@@ -28,7 +28,7 @@
                     </group>
                     <searchpanel>
                         <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
-                        <field name="department_id" icon="fa-users" enable_counters="1"/>
+                        <field name="department_id" invisible='1' icon="fa-users" enable_counters="1"/>
                     </searchpanel>
                 </search>
              </field>
@@ -43,7 +43,7 @@
                     <field name="user_partner_id" invisible="1"/>
                     <field name="hr_presence_state" invisible="1"/>
                     <header>
-                        <button name="%(plan_wizard_action)d" string="Launch Plan" type="action" groups="hr.group_hr_manager"/>
+                        <button name="%(plan_wizard_action)d" invisible='1' string="Launch Plan" type="action" groups="hr.group_hr_manager"/>
                     </header>
                     <sheet>
                         <div name="button_box" class="oe_button_box">
@@ -82,19 +82,19 @@
                             <h2>
                                 <field name="job_title" placeholder="Job Position" />
                             </h2>
-                            <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags"  groups="hr.group_hr_manager"/>
+                            <field name="category_ids" invisible="1" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags"  groups="hr.group_hr_manager"/>
                         </div>
                         <group>
                             <group>
                                 <field name="mobile_phone" widget="phone"/>
-                                <field name="work_phone" invisible='1' widget="phone"/>
+                                <field name="work_phone" invisible="1" widget="phone"/>
                                 <field name="work_email" widget="email"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                             <group>
-                                <field name="department_id"/>
+                                <field name="department_id" invisible='1'/>
                                 <field name="parent_id"/>
-                                <field name="coach_id"/>
+                                <field name="coach_id" invisible="1"/>
                             </group>
                         </group>
                         <notebook>
@@ -107,7 +107,7 @@
                                                 options='{"always_reload": True, "highlight_first_line": True}'/>
                                             <field name="work_location"/>
                                         </group>
-                                        <group name="managers" string="Approvers" class="hide-group-if-empty">
+                                        <group name="managers" invisible='1' string="Approvers" class="hide-group-if-empty">
                                             <!-- is overridden in other hr related modules -->
                                         </group>
                                         <group name="departure" string="Departure" attrs="{'invisible': [('active', '=', True)]}">
@@ -125,52 +125,52 @@
                             <page name="personal_information" string="Private Information" groups="hr.group_hr_user">
                                 <group>
                                     <group string="Private Contact">
-                                        <field name="address_home_id"
+                                        <field name="address_home_id" invisible="1"
                                             context="{
                                                 'show_address': 1,
                                                 'default_type': 'private',
                                                 'form_view_ref': 'base.res_partner_view_form_private'}"
                                             options='{"always_reload": True, "highlight_first_line": True}'/>
-                                        <field name="private_email" string="Email"/>
-                                        <field name="phone" class="o_force_ltr" groups="hr.group_hr_user" string="Phone" readonly="True"/>
+                                        <field name="private_email" invisible="1" string="Email"/>
+                                        <field name="phone" invisible="1" class="o_force_ltr" groups="hr.group_hr_user" string="Phone" readonly="True"/>
                                         <field name="bank_account_id" context="{'default_partner_id': address_home_id}"/>
-                                        <label for="km_home_work"/>
+                                        <label for="km_home_work" invisible="1"/>
                                         <div class="o_row" name="div_km_home_work">
-                                            <field name="km_home_work" groups="hr.group_hr_user"/>
-                                            <span>Km</span>
+                                            <field name="km_home_work" invisible="1" groups="hr.group_hr_user"/>
+                                            
                                         </div>
 
                                     </group>
                                     <group string="Citizenship">
                                         <field name="country_id" options='{"no_open": True, "no_create": True}'/>
                                         <field name="identification_id" groups="hr.group_hr_user"/>
-                                        <field name="passport_id" groups="hr.group_hr_user"/>
+                                        <field name="passport_id" invisible="1" groups="hr.group_hr_user"/>
                                         <field name="gender"/>
                                         <field name="birthday"/>
                                         <field name="place_of_birth" groups="hr.group_hr_user"/>
                                         <field name="country_of_birth" groups="hr.group_hr_user"/>
                                     </group>
-                                    <group string="Marital Status">
-                                        <field name="marital"/>
+                                    <group string="Marital Status" invisible="1">
+                                        <field name="marital" invisible="1"/>
                                         <field name="spouse_complete_name" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
                                         <field name="spouse_birthdate" attrs="{'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
                                     </group>
-                                    <group string="Dependant">
-                                        <field name="children"/>
+                                    <group string="Dependant" invisible="1">
+                                        <field name="children" invisible="1"/>
                                     </group>
-                                    <group string="Emergency">
-                                        <field name="emergency_contact"/>
-                                        <field name="emergency_phone" class="o_force_ltr"/>
+                                    <group string="Emergency" invisible="1">
+                                        <field name="emergency_contact" invisible="1"/>
+                                        <field name="emergency_phone" invisible="1" class="o_force_ltr"/>
                                     </group>
-                                    <group string="Work Permit" name="work_permit">
-                                        <field name="visa_no"/>
-                                        <field name="permit_no"/>
-                                        <field name="visa_expire"/>
+                                    <group string="Work Permit" invisible="1" name="work_permit">
+                                        <field name="visa_no" invisible="1"/>
+                                        <field name="permit_no" invisible="1"/>
+                                        <field name="visa_expire" invisible="1"/>
                                     </group>
-                                    <group string="Education">
-                                        <field name="certificate"/>
-                                        <field name="study_field"/>
-                                        <field name="study_school"/>
+                                    <group string="Education" invisible="1">
+                                        <field name="certificate" invisible="1"/>
+                                        <field name="study_field" invisible="1"/>
+                                        <field name="study_school" invisible="1"/>
                                     </group>
                                 </group>
                             </page>
@@ -180,11 +180,11 @@
                                         <field name="user_id" string="Related User" domain="[('share', '=', False)]"/>
                                         <field name="job_id"/>
                                     </group>
-                                    <group string="Attendance" name="identification_group">
-                                        <field name="pin" string="PIN Code"/>
-                                        <label for="barcode"/>
+                                    <group string="Attendance" invisible="1" name="identification_group">
+                                        <field name="pin" invisible="1" string="PIN Code"/>
+                                        <label for="barcode" invisible="1"/>
                                         <div class="o_row">
-                                            <field name="barcode"/>
+                                            <field name="barcode" invisible="1"/>
                                             <button string="Generate" class="btn btn-link" type="object" name="generate_random_barcode" attrs="{'invisible': [('barcode', '!=', False)]}"/>
                                             <button name="%(hr_employee_print_badge)d" string="Print Badge" class="btn btn-link" type="action" attrs="{'invisible': [('barcode', '=', False)]}"/>
                                         </div>
@@ -209,10 +209,10 @@
             <field name="arch" type="xml">
                 <tree string="Employees" multi_edit="1" sample="1">
                     <field name="name" readonly="1"/>
-                    <field name="work_phone" class="o_force_ltr" readonly="1"/>
+                    <field name="work_phone" invisible="1" class="o_force_ltr" readonly="1"/>
                     <field name="work_email"/>
                     <field name="company_id" groups="base.group_multi_company" readonly="1"/>
-                    <field name="department_id"/>
+                    <field name="department_id" invisible='1'/>
                     <field name="job_id"/>
                     <field name="parent_id"/>
                     <field name="work_location" optional="hide"/>
@@ -282,7 +282,7 @@
                                        <span t-if="record.job_title.raw_value" class="o_kanban_record_subtitle"><field name="job_title"/></span>
                                    </div>
                                </div>
-                               <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color'}" groups="hr.group_hr_manager"/>
+                               <field name="category_ids" invisible="1" widget="many2many_tags" options="{'color_field': 'color'}" groups="hr.group_hr_manager"/>
                                <ul>
                                    <li id="last_login"/>
                                    <li t-if="record.work_email.raw_value" class="o_text_overflow"><field name="work_email" /></li>
